@@ -1,0 +1,51 @@
+.Rratings{
+    display: flex;
+    margin-bottom: 1.5rem;
+  }
+
+h2{
+    line-height: 35px;
+    padding-right: 3rem;
+    font-weight: 500;
+}
+
+.review-field{
+   border-color: var(--color-golden);
+   border-radius: 5px;
+   border-width: 2px;
+   width: 50%;
+   height: 110px;
+   resize: none;
+   margin-bottom: 1.5rem;
+   line-height: 20px;
+   font-family: var(--font-alt);
+   padding: 10px;
+   outline: none;
+   text-transform: capitalize;
+}
+::placeholder{
+    color: var(--color-grey);
+}
+
+.review-field:focus{
+    border-color: var(--color-golden2);
+}
+
+
+.add-review-sec{
+ margin-left: 5rem;
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-start;
+ padding-bottom: 5rem;
+ padding-top: 3rem;
+}
+
+.Rtitle{
+  margin-top: 5rem;
+  font-family: var(--font-base);
+  color: var(--color-black);
+  font-size: 40px;
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+}

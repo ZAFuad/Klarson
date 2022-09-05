@@ -1,9 +1,11 @@
 .admin-v-container{
     display: flex;
-    height: 100vh;
+    height: max-content;
     width: 100%;
     justify-content: space-between;
-    
+    padding-bottom: 3rem;
+    min-height: 80vh;
+    padding-top: 15rem;
 }
 
 .admin-v-section{
@@ -17,7 +19,7 @@
 
 .admin-v-wrapper{
     width: 80%;
-    height: fit-content;
+    max-height: fit-content;
     border: 1px solid gray;
     border-color: black;
     border-radius: 10px;
@@ -39,7 +41,6 @@
     align-items: center;
     overflow: hidden;
     position: relative;
-    
 }
 .sm-p-img{
     object-fit: cover;
@@ -127,5 +128,5 @@
     color: white;
     font-size: 35px;
     font-weight: 500;
-    padding: 2rem 8rem;
+    padding: 2rem 5rem;
 }

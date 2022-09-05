@@ -1,38 +1,41 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./TopProduct.css";
 import { Store } from "../../Store";
 import Cookies from "js-cookie";
 
-
-
-
 function TopProduct(props) {
+  const [login, setLogin] = useState(false);
   const dataX = props.data;
   console.log(dataX);
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const product = props.product;
   console.log(product);
-  console.log(product);
+  useEffect(() => {
+    if (Cookies.get("x-access")) {
+      setLogin(true);
+    }
+  });
   const addToCartHandler = () => {
     ctxDispatch({
       type: "CART_ADD_ITEM",
-      payload: { ...product, quantity: 1},
+      payload: { ...product, quantity: 1 },
     });
   };
   return (
     <>
       {dataX !== undefined ? (
         <div className="top-product">
-          <h1 className="section-title"> Best Selling Products</h1>
+          <h1 className="section-title">Latest Products</h1>
           <div className="top-product-container">
             {dataX.map((product) => (
-              <div key={product.slug} className="product-card">
-                <Link to={`/product/${product.slug}`}>
+              <div key={product._id} className="product-card">
+                <Link to={`/product/${product._id}`}>
                   <img
                     className="product-img"
-                    src={product.imgage}
+                    src={`uploads/${product.image}`}
                     alt={product.name}
                   />
 

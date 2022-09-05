@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { useParams } from "react-router-dom";
 import images from "../constants/images";
 import data from "../constants/data";
@@ -9,6 +9,8 @@ import "../App.css";
 import axios from "axios";
 import { Store } from "../Store";
 import CartContext from "../contexts/CartContext";
+import { getProductInfo } from "../methods/getData";
+import Cookies from "js-cookie";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -27,27 +29,30 @@ function ProductScreen() {
   const cartNum = useContext(CartContext);
   const params = useParams();
   const { slug } = params;
-
-  const [{ loading, error, product }, dispatch] = useReducer(reducer, {
-    product: [],
-    loading: true,
-    error: "",
-  });
+  const [loading ,setLoading] = useState(true);
+  const [product ,setProduct] =useState([]);
+  // const [{ loading, error, product }, dispatch] = useReducer(reducer, {
+  //   product: [],
+  //   loading: true,
+  //   error: "",
+  // });
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
-      try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
-        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
-      } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: err.message });
-      }
+    const getData = async (req,res)=>{
+      try{  
+        const res= await getProductInfo(slug);
+        if(res){
+          setLoading(false)
+          setProduct(res);
+        }
 
-      //setProducts(result.data);
-    };
-    fetchData();
-  }, [slug]);
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
+    getData();
+  }, []);
 
   
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -64,9 +69,9 @@ function ProductScreen() {
   ) : (
     <>
       <div className="Sproduct-detail">
-        <img src={product.imgUrl} className="Sproduct-img" alt={slug} />
+        <img src={`/uploads/${product.image}`} className="Sproduct-img" alt=""/>
         <div className="Sdetail-info">
-          <h1 className="Sproduct-title">{slug}</h1>
+          <h1 className="Sproduct-title">{product.name}</h1>
           <p className="Sproduct-des">{product.description}</p>
           <div className="Sratings">
             <Rating rating={product.rating} />
@@ -74,8 +79,37 @@ function ProductScreen() {
           </div>
           <p className="Sproduct-price">BDT {product.price}</p>
           <div className="Sbtn-container">
-            <button className="Sproduct-btn">Buy Now</button>
-            <button onClick={addToCartHandler} className="Sproduct-btn">
+            <button onClick={() => {
+                    console.log(product);
+                    ctxDispatch({
+                      type: "CART_ADD_ITEM",
+                      payload: { ...product, quantity: 1 },
+                    });
+                    const addCart = () => {
+                      console.log(product);
+                      const check = Cookies.get("cart");
+                      if (!check) {
+                        let arr = [];
+                        const data = { ...product, cartQuantity: 1 };
+                        arr.push(data);
+                        Cookies.set("cart", JSON.stringify(arr));
+                      } else {
+                        let arr = JSON.parse(check);
+                        let checker = false;
+                        for (var i = 0; i < arr.length; i++) {
+                          if (arr[i].name === product.name) {
+                            checker = true;
+                          }
+                        }
+                        if (!checker) {
+                          const data = { ...product, cartQuantity: 1 };
+                          arr.push(data);
+                          Cookies.set("cart", JSON.stringify(arr));
+                        }
+                      }
+                    };
+                    addCart();
+                  }}className="Sproduct-btn">
               Add to Cart
             </button>
           </div>

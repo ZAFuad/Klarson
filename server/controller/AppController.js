@@ -2,6 +2,7 @@ const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
 const CryptoJS = require("crypto-js");
+const Transaction = require("../models/transactionModel");
 module.exports.LoginUser = async (req, res) => {
   try {
     const { email, password } = req.body.data;
@@ -80,3 +81,17 @@ module.exports.getProductInfo = async (req, res) => {
     console.log(err);
   }
 };
+module.exports.getOrder = async (req, res) => {
+  try {
+    const ret = await Transaction.find({ user_id: req.params.id });
+    if (ret) {
+      res.status(200).json(ret);
+    }
+    else {
+      res.status(203).json(false)
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
+}

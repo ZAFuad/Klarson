@@ -5,7 +5,8 @@ const Product = require("../models/productModel");
 
 module.exports.addProduct = async (req, res) => {
   try {
-    const prod = Product.create({
+    console.log(req.body);
+    const prod =await Product.create({
       name: req.body.name,
       image: req.file.originalname,
       category: req.body.category,
@@ -15,6 +16,7 @@ module.exports.addProduct = async (req, res) => {
       rating: 0,
       numReviews: 0,
     });
+    console.log(prod);
     if (prod) {
       res.status(200).json(prod);
     } else {
@@ -38,7 +40,7 @@ module.exports.updateReview = async (req, res) => {
     console.log(err);
   }
 };
-module.exports.showOrderInfo = async(req, res) => {
+module.exports.showOrderInfo = async (req, res) => {
   try {
     const ret = await Order.find({});
     if (ret.length > 0) {
@@ -52,30 +54,30 @@ module.exports.showOrderInfo = async(req, res) => {
 };
 module.exports.updateDelivery = async (req, res) => {
   try {
-    const { email ,amount} = req.body.data || req.body.email;
+    const { email, amount } = req.body.data || req.body.email;
     const res1 = await Order.findOne({ email: email });
-    const res2 = await User.findOne({email:email});
-    Promise.all([res1,res2]).then(async (res2)=>{
-        const res3 = await Card.findOne({ref_id:res2._id});
-        res3.balance = parseInt(res3.balance)-parseInt(amount);
-        await res3.save()
-        Promise.all([res3]).then(async()=>{
-            const res4 = await Card.findOne({account_no:admin_account});
-            if(res4){
-                res4.balance=parseInt(res4.balance)+parseInt(amount);
-                await res4.save();
-                Promise.all([res4]).then(async()=>{
-                    res1.isDelivered=true;
-                    await res1.save();
-                    Promise.all([res1]).then(()=>{
-                        res.status(200).json("Transaction done")
-                    })
-                })
-            }
-        })
-    })
+    const res2 = await User.findOne({ email: email });
+    Promise.all([res1, res2]).then(async (res2) => {
+      const res3 = await Card.findOne({ ref_id: res2._id });
+      res3.balance = parseInt(res3.balance) - parseInt(amount);
+      await res3.save();
+      Promise.all([res3]).then(async () => {
+        const res4 = await Card.findOne({ account_no: admin_account });
+        if (res4) {
+          res4.balance = parseInt(res4.balance) + parseInt(amount);
+          await res4.save();
+          Promise.all([res4]).then(async () => {
+            res1.isDelivered = true;
+            await res1.save();
+            Promise.all([res1]).then(() => {
+              res.status(200).json("Transaction done");
+            });
+          });
+        }
+      });
+    });
   } catch (err) {
-    res.status(203).json("Transaction Reverted")
+    res.status(203).json("Transaction Reverted");
     console.log(err);
   }
 };

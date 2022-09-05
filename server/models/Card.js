@@ -2,6 +2,10 @@
 const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
+  account_name: {
+    type: String,
+    required: true,
+  },
   account_no: {
     type: String,
     required: true,
@@ -21,11 +25,7 @@ const cardSchema = new mongoose.Schema({
   balance: {
     type: Number,
     required: true,
-  },
-  ref_id: {
-    type: String,
-    required: true,
-  },
+  }
 });
 
 const Card = mongoose.model("card", cardSchema);

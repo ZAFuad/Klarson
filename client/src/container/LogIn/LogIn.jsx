@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import images from "../../constants/images";
 import { loginUser } from "../../methods/postData";
+import { ToastContainer, toast } from 'react-toastify';
 import "./LogIn.css";
 import Cookies from "js-cookie";
 
@@ -9,6 +10,8 @@ const LogIn = () => {
   const { search } = useLocation();
   const navigate = useNavigate();
   const redirectInURL = new URLSearchParams(search).get("redirect");
+  
+  const [admin, setAdmin] = useState(false);
   const redirect = redirectInURL ? redirectInURL : "/";
   const [data, setData] = useState(undefined);
   const handleClick = async () => {
@@ -16,12 +19,31 @@ const LogIn = () => {
       if (data && data.email && data.password) {
         const res = await loginUser(data);
         if (res) {
+          Cookies.set('user',JSON.stringify(res))
           Cookies.set("x-access", true);
-          navigate("/");
+          console.log("sign in successfull");
+          if(Cookies.get('user')){
+            if(JSON.parse(Cookies.get("user")).isAdmin){
+              setAdmin(true)
+            }
+          }
+          console.log(admin)
+          if(admin)
+          {
+            navigate("/adminpage");
+          window.location.reload()
+          }
+          else{
+            navigate("/");
+            window.location.reload()
+          }
+          
         } else {
+          toast.error("Credintials error")
           console.log(res);
         }
       } else {
+        toast.error("Credintials error")
         alert("Credintials error");
       }
     } catch (err) {

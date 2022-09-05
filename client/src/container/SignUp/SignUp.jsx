@@ -15,7 +15,7 @@ const SignUp = () => {
   const handleSubmit = async () => {
     const res = await registerUser(data);
     if (res) {
-      history("/");
+      history("/bankdetails");
     }
   };
   return (

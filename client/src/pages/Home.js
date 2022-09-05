@@ -20,7 +20,10 @@ const Home = () => {
     const getData = async () => {
       try {
         const res = await getProduct();
-        setData(res);
+        if(res){
+          setData(res);
+        }
+       
       } catch (err) {
         console.log(err);
       }
@@ -31,8 +34,8 @@ const Home = () => {
     <div>
       <Intro />
       <About />
-      <Category />
-      <TopProducts data={data} />
+      {/* <Category /> */}
+      <TopProducts data={data}/>
       <Gallery />
       <Newsletter />
       <FindUs />

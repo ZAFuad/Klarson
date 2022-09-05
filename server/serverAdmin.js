@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/api/admin", Routes);
+app.use("/admin", Routes);
 mongoose.connect(
   url,
   {

@@ -13,7 +13,7 @@ function BankDetails() {
       const res = await createCard(data);
       console.log(res);
       if (res) {
-        history("/");
+        history("/signin");
       }
     };
   return (
@@ -26,41 +26,41 @@ function BankDetails() {
             <input
               type="text"
               autoComplete="off"
-              id="name"
+              id="account_name"
               placeholder="Name On Card"
               required
             />
             <input
               type="text"
               autoComplete="off"
-              id="card-number"
+              id="account_no"
               placeholder="Card Number"
               required
             />
             <legend style={{'opacity':"0.5",'fontSize':"12px",'margin-left':"-14rem",'margin-bottom':"-1rem"}}>Expiration Date</legend>
-            <input type="date" name="expire" placeholder='Expiration'/>
+            <input id="MMYY"type="date" name="expire" placeholder='Expiration'/>
             <input
               type="password"
               autoComplete="off"
-              id="verification-code"
+              id="CVV"
               placeholder="Card Verification Code"
               required
             />
             <input
               type="password"
               autoComplete="off"
-              id="key"
+              id="secret"
               placeholder="Enter a secret key"
               required
             />
             <input
               type="password"
               autoComplete="off"
-              id="con-key"
+              id="password"
               placeholder="Re-enter the secret key"
               required
             />
-        
+      
             <button onClick={handleSubmit} className="Sproduct-btn rounded">
               Confirm
             </button>

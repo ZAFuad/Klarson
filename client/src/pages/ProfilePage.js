@@ -54,33 +54,40 @@ function ProfilePage() {
                     {" "}
                     Previous Orders{" "}
                   </h1>
-                  {order.map((ele) => (
-                  <div
-                    className="sm-product"
-                    style={{ paddingBottom: "1rem", gap: "1rem" }}
-                  >
-                    <img
-                      className="sm-p-img"
-                      src={`uploads/${ele.prod_image}`}
-                      alt=""
-                    />
-                    <div className="sm-p-text">
-                      <p className="sm-p-name">{ele.prod_name} </p>
-                      <p className="sm-p-cat">{ele.prod_category}</p>
-                    </div>
-                    <div className="sm-u-text">
-                      <p className="sm-u-name">
-                        Number of item: {ele.prod_quantity}
-                      </p>
-                      <p className="sm-u-tid">TransactionID {ele.prod_id}</p>
-                    </div>
-                    
-                  </div>
-                  
-                   ))}
-                  
-                </div>
-             
+                {order.length === 0 ? (
+                  <>
+                  <h2 style={{'alignSelf':"flex-start",'paddingLeft':"3rem",'color':"red"}}>No Previous Order</h2>
+                  <img className="empty-cart" src={images.empty_cart} />
+                  </>
+                ) : (
+                  <>
+                    {order.map((ele) => (
+                      <div
+                        className="sm-product"
+                        style={{ paddingBottom: "1rem", gap: "1rem" }}
+                      >
+                        <img
+                          className="sm-p-img"
+                          src={`uploads/${ele.prod_image}`}
+                          alt=""
+                        />
+                        <div className="sm-p-text">
+                          <p className="sm-p-name">{ele.prod_name} </p>
+                          <p className="sm-p-cat">{ele.prod_category}</p>
+                        </div>
+                        <div className="sm-u-text">
+                          <p className="sm-u-name">
+                            Number of item: {ele.prod_quantity}
+                          </p>
+                          <p className="sm-u-tid">
+                            TransactionID {ele.prod_id}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
             </>
           </div>
         </div>
@@ -90,3 +97,4 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+

@@ -19,3 +19,7 @@ Then open another terminal in this location and run
 ```
 nodemon serverBank.js
 ```
+Then open another terminal in this location and run
+```
+nodemon serverApp.js
+```

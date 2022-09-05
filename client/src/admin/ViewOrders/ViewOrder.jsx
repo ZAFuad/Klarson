@@ -75,7 +75,7 @@ function ViewOrder() {
                   <p className="sm-u-tid">TransactionID {ele._id}</p>
                 </div>
                 <div className="right">
-                  <p className="sm-p-price">BDT {ele.prod_price}</p>
+                  <p className="sm-p-price">BDT {ele.prod_price*ele.prod_quantity}</p>
                   {/* <i className="sm-p-del">
                   <DeleteIcon />
                 </i>

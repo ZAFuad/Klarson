@@ -1,6 +1,6 @@
 .add-p-container{
     display: flex;
-    height: 80vh;
+    min-height: 90vh;
     padding-left: 3rem;
     padding-right: 3rem;
     flex-direction: column;

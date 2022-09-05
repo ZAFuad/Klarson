@@ -23,3 +23,5 @@ Then open another terminal in this location and run
 ```
 nodemon serverApp.js
 ```
+
+and at last, connect to a mongodb database cluster.

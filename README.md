@@ -1,4 +1,9 @@
-# Web-Project
+# Web-Project 
+Klarson - an e-commerce platform for selling modern furniture. 
+The Interface Design can be seen [here.](https://drive.google.com/file/d/11YqoNsIp4rTyzmIMF_fjcVVIF5CyWGMF/view?usp=drivesdk)
+  
+
+   
 To run the front-end, first go to the client folder and run 
 ```
 npm install

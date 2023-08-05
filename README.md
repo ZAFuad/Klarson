@@ -1,4 +1,4 @@
-# Web-Project 
+# Klarson 
 Klarson - an e-commerce platform for selling modern furniture. 
 The Interface Design can be seen [here.](https://drive.google.com/file/d/11YqoNsIp4rTyzmIMF_fjcVVIF5CyWGMF/view?usp=drivesdk)
   
